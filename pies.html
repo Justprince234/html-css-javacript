@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site.css" type="text/css">
+    <title>Pies | Bethany's Pie Shop</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="pies.html">Pies</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside><img src="images/logo.png" alt="Bethany's Pie Shop"></aside>
+        <article>
+            <h1>Pies</h1>
+            <section class="columns-desktop">
+                <div class="pie">
+                    <img src="images/apple-pie.png" alt="Apple Pie">
+                    <div class="columns">
+                        <div class="title">Apple Pie</div>
+                        <div class="price">$12.95</div>
+                    </div>
+                    <p class="desc">Our famous apple pie</p>
+                    <button data-order="apple-pie">Order</button>
+                </div>
+                <div class="pie">
+                    <img src="images/cherry-pie.png" alt="Cherry Pie">
+                    <div class="columns">
+                        <div class="title">cherry Pie</div>
+                        <div class="price">$15.95</div>
+                    </div>
+                    <p class="desc">Our famous cherry pie</p>
+                    <button data-order="cherry-pie">Order</button>
+                </div>
+            </section>
+        </article>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="pies.html">Pies</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+<script>
+    /* Script to run as page loads. */
+    window.addEventListener("DOMContentLoaded", function(e){
+        /* Select all the button that has attribute of data-order. */
+        const orderButtons = document.querySelectorAll("button[data-order");
+
+        /* Loop through all of the buttons access to all buttons. */
+        orderButtons.forEach(function(button){
+            /* Click handler for each button.*/
+            button.addEventListener("click", function(e){
+                /* e.currentTarget gives refrence to button clicked on.*/
+                const button = e.currentTarget;
+                /* parentNode gives all the information from user selection. */
+                const container =  button.parentNode;
+
+                /* Store all data in the order object. */
+                const order = {
+                    id: button.getAttribute("data-order"),
+                    title: container.querySelector(".title").innerText,
+                    price: container.querySelector(".price").innerText,
+                    desc: container.querySelector(".desc").innerText
+                };
+                /* Save object in local storage. Using the stringify function convert object to strings. */
+                localStorage.setItem("order", JSON.stringify(order));
+
+                /* Redirects to order.html */
+                const url = window.location.href.replace("pies.html", "order.html");
+                /* It sets the browser location to the url. */
+                window.location.href = url;
+            });
+        });
+    });
+</script>
+</html>
