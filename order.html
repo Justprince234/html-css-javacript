@@ -62,26 +62,26 @@
             </div>
 
 
-            <form action="">
+            <form action="https://sheetdb.io/api/v1/tld0lvrr5ydm2" method="POST", id="sheetdb-form">
                 <div class="input-group">
                     <div><label for="first-name">First Name</label></div>
-                    <div><input type="text" name="first-name" id="first-name"></div>
+                    <div><input type="text" name="data[first-name]" id="first-name"></div>
                 </div>
 
                 <div class="input-group">
                     <div><label for="last-name">Last Name</label></div>
-                    <div><input type="text" name="last-name" id="last-name"></div>
+                    <div><input type="text" name="data[last-name]" id="last-name"></div>
                 </div>
 
                 <div class="input-group">
                     <div><label for="street-address">Street Address</label></div>
-                    <div><input type="text" name="street-address" id="street-address"></div>
+                    <div><input type="text" name="data[street-address]" id="street-address"></div>
                 </div>
 
                 <div class="input-group">
                     <div><label for="state">State</label></div>
                     <div>
-                        <select name="state" id="state">
+                        <select name="data[state]" id="state">
                             <option value="" selected>[ Select One]</option>
                             <option value="Lagos">Lagos</option>
                             <option value="akwa-ibom">Akwa Ibom</option>
@@ -93,7 +93,7 @@
                     <div><label for="comments">Comments</label></div>
                     <div>
                         <textarea 
-                        name="comments" 
+                        name="data[comments]" 
                         id="comments" 
                         cols="30" 
                         rows="10"
@@ -142,6 +142,20 @@
             img.setAttribute("src", `images/${pieOrder.id}.png`);
             img.setAttribute("alt", pieOrder.title);
         }
+    });
+
+    var form = document.getElementById('sheetdb-form');
+    form.addEventListener("submit", e=>{
+        e.preventDefault();
+        fetch(form.action, {
+            method: "POST",
+            body: new FormData(document.getElementById("sheetdb-form")),
+        }).then(
+            Response => Response.json()
+        ).then((html) => {
+            //window.open('d', '_blank');
+            console.log("Thanks! Your order has been submited!");
+        });
     });
 </script>
 </html>
